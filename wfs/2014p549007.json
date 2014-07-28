@@ -1,0 +1,59 @@
+{
+    "type": "FeatureCollection",
+    "totalFeatures": 511004,
+    "features": [
+        {
+            "type": "Feature",
+            "id": "quake_search_v1.2014p549333",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    173.47803,
+                    -39.648535
+                ]
+            },
+            "geometry_name": "origin_geom",
+            "properties": {
+                "publicid": "2014p549333",
+                "eventtype": null,
+                "origintime": "2014-07-23T06:04:43.625Z",
+                "modificationtime": "2014-07-23T06:07:12.232Z",
+                "latitude": -39.648535,
+                "longitude": 173.47803,
+                "depth": 7.34375,
+                "magnitude": 2.6416703,
+                "evaluationmethod": "NonLinLoc",
+                "evaluationstatus": null,
+                "evaluationmode": "automatic",
+                "earthmodel": "nz3drx",
+                "depthtype": null,
+                "originerror": 0.48022989,
+                "usedphasecount": 23,
+                "usedstationcount": 23,
+                "minimumdistance": 0.38872472,
+                "azimuthalgap": 206.88617,
+                "magnitudetype": "M",
+                "magnitudeuncertainty": null,
+                "magnitudestationcount": 13,
+                "bbox": [
+                    173.47803,
+                    -39.648535,
+                    173.47803,
+                    -39.648535
+                ]
+            }
+        }
+    ],
+    "crs": {
+        "type": "EPSG",
+        "properties": {
+            "code": "4326"
+        }
+    },
+    "bbox": [
+        173.47803,
+        -39.648535,
+        173.47803,
+        -39.648535
+    ]
+}
