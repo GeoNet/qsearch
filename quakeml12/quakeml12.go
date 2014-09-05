@@ -179,7 +179,28 @@ func (o *Origin) ArrivalMap() (m []map[string]string) {
 }
 
 // init performs initialisation functions on the QuakeML.  Should be called called after unmarshal.
-func (q *Quakeml) init() {
+func (q *Quakeml) init() (err error) {
+
+	if q.EventParameters.Event.PreferredOriginID == "" {
+		err = errors.New(fmt.Sprint("Empty PreferredOriginID"))
+		return err
+	}
+
+	if q.EventParameters.Event.PreferredMagnitudeID == "" {
+		err = errors.New(fmt.Sprint("Empty PreferredMagnitudeID"))
+		return err
+	}
+
+	if len(q.EventParameters.Event.O) == 0 {
+		err = errors.New(fmt.Sprint("Found no origins"))
+		return err
+	}
+
+	if len(q.EventParameters.Event.M) == 0 {
+		err = errors.New(fmt.Sprint("Found no magnitudes"))
+		return err
+	}
+
 	q.EventParameters.Event.Origins = make(map[string]*Origin)
 
 	for i, origin := range q.EventParameters.Event.O {
@@ -205,6 +226,8 @@ func (q *Quakeml) init() {
 	for i, a := range q.EventParameters.Event.PreferredOrigin.Arrivals {
 		q.EventParameters.Event.PreferredOrigin.Arrivals[i].Pick = q.EventParameters.Event.Picks[a.PickID]
 	}
+
+	return
 }
 
 // unmarshal unmarshalls the quakeml
@@ -214,7 +237,7 @@ func unmarshal(b []byte) (e Event, err error) {
 	if err != nil {
 		return e, err
 	}
-	q.init()
+	err = q.init()
 	return q.EventParameters.Event, err
 }
 
@@ -235,10 +258,10 @@ func fetcher(done <-chan struct{}, eventids <-chan string, c chan<- result) {
 		var e Event
 
 		r, err := client.Get(quakeMLUrl + publicid)
+		defer r.Body.Close()
 
 		if err == nil {
 			b, err = ioutil.ReadAll(r.Body)
-			r.Body.Close()
 		}
 
 		if err == nil && r.StatusCode != 200 {
@@ -297,9 +320,10 @@ func Get(eventid []string) (quakeml map[string]Event) {
 		if r.err != nil {
 			log.Println("Error fetching data for " + r.publicID)
 			log.Println(r.err)
+		} else {
+			quakeml[r.publicID] = r.event
+			i++
 		}
-		quakeml[r.publicID] = r.event
-		i++
 		if i == 50 {
 			log.Printf("Downloaded %v quakes", len(quakeml))
 			i = 0

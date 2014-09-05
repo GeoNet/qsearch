@@ -9,7 +9,7 @@ import (
 )
 
 func TestUnmarshal(t *testing.T) {
-	xmlFile, err := os.Open("2012p070732.xml")
+	xmlFile, err := os.Open("etc/2012p070732.xml")
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
@@ -84,5 +84,37 @@ func TestUnmarshal(t *testing.T) {
 	}
 	if e.PreferredMagnitude.MethodID != "smi:scs/0.7/weighted_average" {
 		t.Error("e.PreferredMagnitude.MethodID expected smi:scs/0.7/weighted_average, got ", e.PreferredMagnitude.MethodID)
+	}
+}
+
+func TestUnmarshalBad(t *testing.T) {
+	xmlFile, err := os.Open("etc/3471609.xml")
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+	defer xmlFile.Close()
+
+	b, _ := ioutil.ReadAll(xmlFile)
+
+	_, err = unmarshal(b)
+	if err == nil {
+		t.Error("should have got an error")
+	}
+}
+
+func TestUnmarshalEmpty(t *testing.T) {
+	xmlFile, err := os.Open("etc/999.xml")
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+	defer xmlFile.Close()
+
+	b, _ := ioutil.ReadAll(xmlFile)
+
+	_, err = unmarshal(b)
+	if err == nil {
+		t.Error("should have got an error")
 	}
 }
