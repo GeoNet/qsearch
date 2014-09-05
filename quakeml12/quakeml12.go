@@ -301,7 +301,7 @@ func Get(eventid []string) (quakeml map[string]Event) {
 
 	c := make(chan result)
 	var wg sync.WaitGroup
-	const numDownloaders = 25
+	const numDownloaders = 15
 	wg.Add(numDownloaders)
 	for i := 0; i < numDownloaders; i++ {
 		go func() {
