@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/GeoNet/qsearch/quakeml12"
+	"github.com/GeoNet/qsearch/seiscompml07"
 	"github.com/GeoNet/qsearch/wfs"
 	"log"
 	"regexp"
@@ -16,8 +16,8 @@ func main() {
 
 	// Parse and validate command line flags.
 
-	pickFormat := quakeml12.PickFormat()
-	arrivalFormat := quakeml12.ArrivalFormat()
+	pickFormat := seiscompml07.PickFormat()
+	arrivalFormat := seiscompml07.ArrivalFormat()
 	eventFormat := wfs.EventFormat()
 
 	eventid := flag.String("eventid", "", "a valid eventid for a GeoNet event e.g., --eventid 2012p070732.  If specifying eventid then start and end are not needed.")
@@ -89,25 +89,25 @@ func main() {
 		query = wfs.Query{EventID: *eventid}
 	}
 
-	log.Printf("Searching the WFS")
+	log.Printf("Searching for quakes")
 
 	quakes, err := query.Get()
 	if err != nil {
-		log.Println("Error searching WFS.")
+		log.Println("Error searching for quakes.")
 		log.Fatal(err)
 	}
 
-	log.Printf("Found %v quakes from the WFS.\n", len(quakes))
+	log.Printf("Found %v quakes.\n", len(quakes))
 
 	// Fetch QuakeML information if it is required in the output
 
-	var quakeml map[string]quakeml12.Event
+	var quakeml map[string]seiscompml07.Event
 
 	if *picks || *poArrivals {
 
-		quakeml = make(map[string]quakeml12.Event)
+		quakeml = make(map[string]seiscompml07.Event)
 
-		log.Printf("Searching for QuakeML.  This can take some time.\n")
+		log.Printf("Searching for quake details.  This can take some time.\n")
 
 		i := 0
 		x := make([]string, len(quakes))
@@ -116,7 +116,7 @@ func main() {
 			i++
 		}
 
-		quakeml = quakeml12.Get(x)
+		quakeml = seiscompml07.Get(x)
 
 		log.Printf("Found quake details for %v quakes.", len(quakeml))
 

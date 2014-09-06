@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<seiscomp xmlns="http://geofon.gfz-potsdam.de/ns/seiscomp3-schema/0.7" version="0.7">
+    <event publicID="2012p070732">
+      <preferredOriginID>NLL.20140109110100.055987.14584</preferredOriginID>
+      <preferredMagnitudeID>NLL.20140109110100.055987.14584#netMag.M</preferredMagnitudeID>
+      <creationInfo>
+        <agencyID>WEL(GNS_Primary)</agencyID>
+        <author>scevent@seiscomp3vm_1</author>
+        <creationTime>2013-12-02T03:38:20.224635Z</creationTime>
+        <modificationTime>2014-01-09T11:01:05.67583Z</modificationTime>
+      </creationInfo>
+      <description>
+        <text>West Coast</text>
+        <type>region name</type>
+      </description>
+      <originReference>NLL.20140109110100.055987.14584</originReference>
+      <originReference>Origin#20131202033820.103859.25261</originReference>
+      <originReference>Origin#20131202033820.136481.25274</originReference>
+      <originReference>Origin#20131202033820.196288.25287</originReference>
+    </event>
+  </EventParameters>
+</seiscomp>

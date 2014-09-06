@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<q:quakeml xmlns:q="http://quakeml.org/xmlns/quakeml/1.2" xmlns="http://quakeml.org/xmlns/bed/1.2">
+  <eventParameters publicID="smi:scs/0.7/NA">
+    <event publicID="smi:scs/0.7/3471609">
+      <preferredOriginID>smi:scs/0.7/484677/GROPE</preferredOriginID>
+      <preferredMagnitudeID>smi:scs/0.7/484677/GROPE/ML</preferredMagnitudeID>
+      <type>earthquake</type>
+      <creationInfo>
+        <agencyID>WEL(CUSP_Catalogue)</agencyID>
+      </creationInfo>
+      <description>
+        <text>felt</text>
+        <type>felt report</type>
+      </description>
+    </event>
+  </eventParameters>
+</q:quakeml>
