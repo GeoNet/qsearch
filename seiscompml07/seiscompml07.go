@@ -157,6 +157,8 @@ func ArrivalFormat() (m map[string]string) {
 	m["PhaseOriginOffset"] = "e.g., PhaseTime - OriginTime (s)"
 	m["TimeResidual"] = "e.g., TODO"
 	m["TimeWeight"] = "e.g., TODO"
+	m["Azimuth"] = "event station azimuth"
+	m["Distance"] = "event station distance"
 	return m
 }
 
@@ -176,6 +178,8 @@ func (o *Origin) ArrivalMap() (m []map[string]string) {
 		am["PhaseOriginOffset"] = fmt.Sprintf("%f", a.Pick.Time.Value.Sub(o.Time.Value).Seconds())
 		am["TimeResidual"] = fmt.Sprintf("%f", a.TimeResidual)
 		am["TimeWeight"] = fmt.Sprintf("%f", a.TimeWeight)
+		am["Azimuth"] = fmt.Sprintf("%f", a.Azimuth)
+		am["Distance"] = fmt.Sprintf("%f", a.Distance)
 		m[i] = am
 		i++
 	}
