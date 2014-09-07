@@ -97,15 +97,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Printf("Found %v quakes.\n", len(quakes))
+	// Fetch SeisCompML information if it is required in the output
 
-	// Fetch QuakeML information if it is required in the output
-
-	var quakeml map[string]seiscompml07.Event
+	var qDetails map[string]seiscompml07.Event
 
 	if *picks || *poArrivals {
 
-		quakeml = make(map[string]seiscompml07.Event)
+		qDetails = make(map[string]seiscompml07.Event)
 
 		log.Printf("Searching for quake details.  This can take some time.\n")
 
@@ -116,12 +114,12 @@ func main() {
 			i++
 		}
 
-		quakeml = seiscompml07.Get(x)
+		qDetails = seiscompml07.Get(x)
 
-		log.Printf("Found quake details for %v quakes.", len(quakeml))
+		log.Printf("Found quake details for %v quakes.", len(qDetails))
 
-		if len(quakes) > len(quakeml) {
-			log.Printf("Failed to find details for %v quakes.  These might be in The Gap.\n", len(quakes)-len(quakeml))
+		if len(quakes) > len(qDetails) {
+			log.Printf("Failed to find details for %v quakes.  These might be in The Gap.\n", len(quakes)-len(qDetails))
 			log.Println("Please see http://info.geonet.org.nz/display/appdata/The+Gap.")
 		}
 	}
@@ -152,9 +150,9 @@ func main() {
 			fmt.Println(strings.Join(oF, ","))
 		}
 
-		for eid, e := range quakeml {
+		for eid, e := range qDetails {
 			for _, v := range e.PickMap() {
-				// Add the publicid from the WFS search, rather than the logical one from in the QuakeML.
+				// Add the publicid from the WFS search, rather than the logical one from in the SeisComPML.
 				v["EventID"] = eid
 				for i, n := range oF {
 					o[i] = v[n]
@@ -171,9 +169,9 @@ func main() {
 			fmt.Println(strings.Join(oF, ","))
 		}
 
-		for eid, e := range quakeml {
+		for eid, e := range qDetails {
 			for _, v := range e.PreferredOrigin.ArrivalMap() {
-				// Add the publicid from the WFS search, rather than the logical one from in the QuakeML.
+				// Add the publicid from the WFS search, rather than the logical one from in the SeisComPML.
 				v["EventID"] = eid
 				for i, n := range oF {
 					o[i] = v[n]
