@@ -21,7 +21,7 @@ func TestURL(t *testing.T) {
 
 	q = Query{Start: s, End: e, MinUsedPhaseCount: -999, MinMagnitude: -999.9, Bbox: ""}
 
-	if !strings.HasSuffix(q.url(), "cql_filter=origintime>='2014-01-27T03:06:25Z'+AND+origintime<='2014-01-27T04:06:25Z'") {
+	if !strings.HasSuffix(q.url(), "cql_filter=origintime>='2014-01-27T03:06:25'+AND+origintime<='2014-01-27T04:06:25'") {
 		t.Error("incorrect for start and end times, got", q.url())
 	}
 
@@ -33,25 +33,25 @@ func TestURL(t *testing.T) {
 
 	q = Query{Start: s, End: e, MinUsedPhaseCount: 60, MinMagnitude: -999.9, Bbox: ""}
 
-	if !strings.HasSuffix(q.url(), "cql_filter=origintime>='2014-01-27T03:06:25Z'+AND+origintime<='2014-01-27T04:06:25Z'+AND+usedphasecount>=60") {
+	if !strings.HasSuffix(q.url(), "cql_filter=origintime>='2014-01-27T03:06:25'+AND+origintime<='2014-01-27T04:06:25'+AND+usedphasecount>=60") {
 		t.Error("incorrect for min phase count, got", q.url())
 	}
 
 	q = Query{Start: s, End: e, MinUsedPhaseCount: -999, MinMagnitude: 6.1, Bbox: ""}
 
-	if !strings.HasSuffix(q.url(), "cql_filter=origintime>='2014-01-27T03:06:25Z'+AND+origintime<='2014-01-27T04:06:25Z'+AND+magnitude>=6.1") {
+	if !strings.HasSuffix(q.url(), "cql_filter=origintime>='2014-01-27T03:06:25'+AND+origintime<='2014-01-27T04:06:25'+AND+magnitude>=6.1") {
 		t.Error("incorrect for start and end times with magnitude, got", q.url())
 	}
 
 	q = Query{Start: s, End: e, MinUsedPhaseCount: 60, MinMagnitude: 6.1, Bbox: ""}
 
-	if !strings.HasSuffix(q.url(), "cql_filter=origintime>='2014-01-27T03:06:25Z'+AND+origintime<='2014-01-27T04:06:25Z'+AND+usedphasecount>=60+AND+magnitude>=6.1") {
+	if !strings.HasSuffix(q.url(), "cql_filter=origintime>='2014-01-27T03:06:25'+AND+origintime<='2014-01-27T04:06:25'+AND+usedphasecount>=60+AND+magnitude>=6.1") {
 		t.Error("incorrect for min phase count with magnitude, got", q.url())
 	}
 
 	q = Query{Start: s, End: e, MinUsedPhaseCount: 60, MinMagnitude: 6.1, Bbox: "174,-41,175,-42"}
 
-	if !strings.HasSuffix(q.url(), "cql_filter=origintime>='2014-01-27T03:06:25Z'+AND+origintime<='2014-01-27T04:06:25Z'+AND+usedphasecount>=60+AND+magnitude>=6.1+AND+BBOX(origin_geom,174,-41,175,-42)") {
+	if !strings.HasSuffix(q.url(), "cql_filter=origintime>='2014-01-27T03:06:25'+AND+origintime<='2014-01-27T04:06:25'+AND+usedphasecount>=60+AND+magnitude>=6.1+AND+BBOX(origin_geom,174,-41,175,-42)") {
 		t.Error("incorrect for min phase count with magnitude and bbox, got", q.url())
 	}
 }

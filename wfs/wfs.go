@@ -144,8 +144,8 @@ func (q *Query) url() string {
 		s = fmt.Sprintf("&cql_filter=publicid=='%s'", q.EventID)
 	} else {
 		s = fmt.Sprintf("&cql_filter=origintime>='%s'+AND+origintime<='%s'",
-			q.Start.Format(time.RFC3339),
-			q.End.Format(time.RFC3339))
+			q.Start.Format("2006-01-02T15:04:05"),
+			q.End.Format("2006-01-02T15:04:05"))
 		if q.MinUsedPhaseCount != -999 {
 			s = fmt.Sprintf("%s+AND+usedphasecount>=%v", s, q.MinUsedPhaseCount)
 		}
@@ -181,6 +181,8 @@ func fetcher(done <-chan struct{}, urls <-chan string, c chan<- result) {
 			b, err = ioutil.ReadAll(r.Body)
 			r.Body.Close()
 		}
+
+		log.Print(url)
 
 		if err == nil && r.StatusCode != 200 {
 			err = errors.New(fmt.Sprintf("Non 200 response code: %d", r.StatusCode))
